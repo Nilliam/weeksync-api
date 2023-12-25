@@ -1,5 +1,6 @@
 package io.weeksync.weeksync.application.service;
 
+import io.weeksync.weeksync.application.repository.TaskHistoryRepository;
 import io.weeksync.weeksync.application.repository.TaskRepository;
 import io.weeksync.weeksync.domain.model.Task;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -20,6 +22,10 @@ public class TaskServiceTest {
 
     @MockBean
     private TaskRepository taskRepository;
+
+    @MockBean
+    private TaskHistoryRepository taskHistoryRepository;
+
 
     @Autowired
     public TaskServiceTest(final TaskService taskService) {
@@ -31,6 +37,7 @@ public class TaskServiceTest {
         Task task = new Task();
         task.setId(UUID.randomUUID());
         when(taskRepository.save(task)).thenReturn(task);
+        when(taskHistoryRepository.save(any())).thenReturn(any());
 
         Task result = taskService.save(task);
 
