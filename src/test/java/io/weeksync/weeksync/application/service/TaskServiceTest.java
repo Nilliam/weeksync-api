@@ -24,7 +24,7 @@ public class TaskServiceTest {
     private TaskRepository taskRepository;
 
     @MockBean
-    private TaskHistoryRepository taskHistoryRepository;
+    private TaskHistoryService taskHistoryService;
 
 
     @Autowired
@@ -37,7 +37,7 @@ public class TaskServiceTest {
         Task task = new Task();
         task.setId(UUID.randomUUID());
         when(taskRepository.save(task)).thenReturn(task);
-        when(taskHistoryRepository.save(any())).thenReturn(any());
+        when(taskHistoryService.saveTaskHistory(task)).thenReturn(any());
 
         Task result = taskService.save(task);
 
