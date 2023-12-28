@@ -3,6 +3,7 @@ package io.weeksync.weeksync.domain.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -17,7 +18,13 @@ public class Task {
 
     private String description;
 
+    private LocalDateTime createdAt;
+
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
+
+    @JoinColumn
+    @ManyToOne
+    private Account account;
 
 }
