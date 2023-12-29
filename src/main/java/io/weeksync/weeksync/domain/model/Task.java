@@ -23,6 +23,9 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
+    @Enumerated(EnumType.STRING)
+    private TaskRecurrence recurrence;
+
     @JoinColumn
     @ManyToOne
     private Account account;
