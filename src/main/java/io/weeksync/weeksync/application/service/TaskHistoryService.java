@@ -1,7 +1,6 @@
 package io.weeksync.weeksync.application.service;
 
 import io.weeksync.weeksync.application.repository.TaskHistoryRepository;
-import io.weeksync.weeksync.application.repository.TaskRepository;
 import io.weeksync.weeksync.domain.model.Task;
 import io.weeksync.weeksync.domain.model.TaskHistory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class TaskHistoryService {
                 .title(task.getTitle())
                 .description(task.getDescription())
                 .status(task.getStatus())
-                .dateTime(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
                 .build();
         return taskHistoryRepository.save(taskHistory);
     }

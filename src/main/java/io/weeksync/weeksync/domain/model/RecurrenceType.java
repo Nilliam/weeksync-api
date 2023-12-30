@@ -1,6 +1,6 @@
 package io.weeksync.weeksync.domain.model;
 
-public enum TaskRecurrence {
+public enum RecurrenceType {
 
     DAILY,
     WEEKLY,
