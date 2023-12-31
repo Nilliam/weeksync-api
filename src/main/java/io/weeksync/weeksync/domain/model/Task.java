@@ -29,6 +29,10 @@ public class Task {
 
     @JoinColumn
     @ManyToOne
+    private Task parent;
+
+    @JoinColumn
+    @ManyToOne
     private Account account;
 
 }

@@ -1,9 +1,6 @@
 package io.weeksync.weeksync.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -18,14 +15,15 @@ public class Recurrence {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
-    private String title;
-
-    private String description;
-
     private LocalDateTime createdAt;
 
-    private LocalDate dueDate;
+    private LocalDate recurUntil;
 
+    @Enumerated(EnumType.STRING)
     private RecurrenceType type;
+
+    @JoinColumn
+    @OneToOne
+    private Task templateTask;
 
 }
