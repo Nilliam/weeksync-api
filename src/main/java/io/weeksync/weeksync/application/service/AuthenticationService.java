@@ -3,9 +3,7 @@ package io.weeksync.weeksync.application.service;
 import io.weeksync.weeksync.presentation.dto.AuthenticationRequest;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.web.server.Cookie.SameSite;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,8 +27,7 @@ public class AuthenticationService {
 
     private UserDetailsService userDetailsService;
 
-    public void authenticateLogin(
-            HttpServletResponse response,
+    public ResponseCookie authenticateLogin(
             AuthenticationManager authenticationManager,
             AuthenticationRequest authenticationRequest
     ) {
@@ -39,9 +36,9 @@ public class AuthenticationService {
 
         String token = jwtService.generateToken(authenticationRequest.username());
 
-        addCookie(response, token);
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return buildCookie(token);
     }
 
     public void authenticateRequest(HttpServletRequest request) {
@@ -64,11 +61,6 @@ public class AuthenticationService {
                         authenticationRequest.password()
                 )
         );
-    }
-
-    private void addCookie(HttpServletResponse response, String token) {
-        ResponseCookie responseCookie = buildCookie(token);
-        response.addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
     }
 
     public ResponseCookie buildCookie(String token) {
