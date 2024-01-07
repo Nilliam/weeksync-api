@@ -1,6 +1,7 @@
 package io.weeksync.weeksync.config;
 
 import io.weeksync.weeksync.application.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,10 +11,18 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Objects;
+
 @Configuration
 public class AuthenticationConfig {
 
-    private AccountService accountService;
+    private final AccountService accountService;
+
+    @Autowired
+    public AuthenticationConfig(AccountService accountService) {
+        this.accountService = Objects.requireNonNull(accountService);
+    }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {

@@ -22,7 +22,6 @@ import static io.weeksync.weeksync.application.service.JwtService.TOKEN_DURATION
 public class AuthenticationService {
     private static final String COOKIE_NAME = "token";
 
-
     private JwtService jwtService;
 
     private UserDetailsService userDetailsService;
